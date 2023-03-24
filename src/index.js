@@ -10,6 +10,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
+const { PrismaClient } = require('@prisma/client')
+
+const prisma = new PrismaClient()
 
 // Start server
 app.listen(port, () => {
