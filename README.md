@@ -1,3 +1,13 @@
+# API
+to create database run:
+`npx prisma migrate deploy`
+
+load seed data
+`npx prisma db seed`  
+
+run api server
+`npm run dev`
+
 # Farm API
 
 This is a technical test to evaluate your integration and web development knowledge. We will accept submissions in any of NodeJS (TypeScript or JavaScript), PHP, Java and Python.
@@ -7,7 +17,7 @@ Please avoid using a full web application framework such as NestJS or Laravel as
 ## Task
 
 * Implement a simple RESTful API that:
-  [ ] Makes available the data in [this file](/data.json)
+  [x] Makes available the data in [this file](/data.json)
   [ ] Provides ability to add/edit/delete data
   [ ] Provides ability to paginate response (default 30 items per page)
   [ ] Provides ability to query data sets on their field values and linked field values (e.g. `farmer_id` in applications)
