@@ -20,7 +20,7 @@ describe('test api', function () {
         expect(rows).toHaveLength(1);
         expect(rows[0].name).toBe("45 Day Notice Account");
 
-        rows = await handleGetApplications(10, 0, { farmer_id: 1215200, product_id: 1435004,status:"in_progress" } as Filter<Application>)
+        rows = await handleGetApplications(10, 0, { farmer_id: 1215200, product_id: 1435004, status: "in_progress" } as Filter<Application>)
         expect(rows).toHaveLength(1);
         expect(rows[0].amount_requested).toBe(11800);
     })

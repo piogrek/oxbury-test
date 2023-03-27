@@ -3,8 +3,6 @@ export type Filter<Type> = {
     [Property in keyof Type]: number | string | undefined;
 };
 
-
-
 export type Farm = {
     id: number
     name: string

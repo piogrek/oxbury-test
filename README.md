@@ -3,6 +3,11 @@
 run api server (dev)
 `npm run serve`
 
+demo credentials:
+user: `api`
+password : `password`
+
+
 # Farm API
 
 This is a technical test to evaluate your integration and web development knowledge. We will accept submissions in any of NodeJS (TypeScript or JavaScript), PHP, Java and Python.
@@ -20,8 +25,8 @@ Please avoid using a full web application framework such as NestJS or Laravel as
 ### Extra / Bonus Points
 
 * If you have extra time feel free to add extra features you think would be appropriate, e.g:
-  [ ] Authentication
-  [ ] Rate Limiting
+  [x] Authentication
+  [x] Rate Limiting
 
 ### Note
 
