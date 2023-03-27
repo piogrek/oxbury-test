@@ -16,6 +16,35 @@ password : `password`
 
 By default server will start and reset database (create/seed)
 
+
+API routes:
+available entity types (:type) :
+`farmers` `farms` `applications` `products`
+
+Filtering:
+filter format in query parameters:  ?filter[field_name]=filter_value&filter[field_name2]=filter_value2
+filter values will be used using "AND" operator
+
+
+[GET] 
+/:type
+
+[GET] 
+/:type/:id
+
+[PUT] 
+/:type/:id
+
+[POST]  
+/:type
+
+[DELETE]  
+/:type/:id
+
+example:
+[GET] `http://localhost:3001/applications`
+
+
 # Farm API
 
 This is a technical test to evaluate your integration and web development knowledge. We will accept submissions in any of NodeJS (TypeScript or JavaScript), PHP, Java and Python.
