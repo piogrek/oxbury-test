@@ -1,14 +1,19 @@
-import { Application } from "./models";
+import { Application, Filter } from "./models";
 import { Database } from 'sqlite3';
 const db = new Database('db.sqlite');
 
 // get list of all Applications from database
-export function handleGetApplications(limit: number, offset: number): Promise<Application[]> {
+export function handleGetApplications(limit: number, offset: number, filter: Filter<Application>): Promise<Application[]> {
     // return new promise of type Application[]
     return new Promise<Application[]>((resolve, reject) => {
+        // create query filter based on the filter object
+        let where = ""
+        if (filter) {
+            where = ["type","amount_requested","status","product_id","farmer_id"].filter(key => !!filter[key]).map(key => `${key} = '${filter[key]}'`).join(' AND ');
+        }
         // get the Application from the db
         // return the Application
-        db.all<Application>(`SELECT * FROM  application LIMIT ${limit} OFFSET ${offset}`, (err, rows) => { // this is the query    
+        db.all<Application>(`SELECT * FROM  application where ${where ? where : "1=1"} LIMIT ${limit} OFFSET ${offset}`, (err, rows) => { // this is the query    
             resolve(rows);
         })
     })

@@ -1,12 +1,17 @@
-import { Farm } from "./models";
+import { Farm, Filter } from "./models";
 import { Database } from 'sqlite3';
 const db = new Database('db.sqlite');
 
 // get list of all farms from database
-export function handleGetFarms(limit: number, offset: number): Promise<Farm[]> {
+export function handleGetFarms(limit: number, offset: number, filter: Filter<Farm>): Promise<Farm[]> {
     // return new promise of type Farm[]
     return new Promise<Farm[]>((resolve, reject) => {
-        db.all<Farm>(`SELECT * FROM farm LIMIT ${limit} OFFSET ${offset}`, (err, rows) => { // this is the query    
+        // create query filter based on the filter object
+        let where = ""
+        if (filter) {
+            where = ["name", "age", "phone_number", "farm_id"].filter(key => !!filter[key]).map(key => `${key} = '${filter[key]}'`).join(' AND ');
+        }
+        db.all<Farm>(`SELECT * FROM farm where ${where ? where : "1=1"} LIMIT ${limit} OFFSET ${offset}`, (err, rows) => { // this is the query    
             resolve(rows);
         })
     })

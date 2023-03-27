@@ -5,6 +5,7 @@ import createAndSeed from './src/seed'
 import { handleCreateFarm, handleDeleteFarm, handleGetFarm, handleGetFarms, handleUpdateFarm } from './src/farms';
 import { handleCreateApplication, handleDeleteApplication, handleGetApplication, handleGetApplications, handleUpdateApplication } from './src/applications';
 import { handleCreateProduct, handleDeleteProduct, handleGetProduct, handleGetProducts, handleUpdateProduct } from './src/products';
+import { Application, Farm, Farmer, Filter, Product } from './src/models';
 const app = express();
 const port = 3001
 
@@ -18,9 +19,12 @@ createAndSeed()
 app.get('/farmers', async (req: Request, res: Response) => {
   const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
   const page = req.query.page ? parseInt(req.query.page as string) : 0
-  const data = await handleGetFarmers(limit, page)
+  const filter: Filter<Farmer> = req.query.filter ? (req.query.filter as Filter<Farmer>) : null
+
+  const data = await handleGetFarmers(limit, page, filter)
   res.status(200).json(data);
 });
+
 
 // GET route to return all farmers
 app.get('/farmers/:id', async (req, res) => {
@@ -56,7 +60,9 @@ app.delete('/farmers/:id', (req, res) => {
 app.get('/farms', async (req: Request, res: Response) => {
   const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
   const page = req.query.page ? parseInt(req.query.page as string) : 0
-  const data = await handleGetFarms(limit, page)
+  const filter: Filter<Farm> = req.query.filter ? (req.query.filter as Filter<Farm>) : null
+
+  const data = await handleGetFarms(limit, page, filter)
   res.status(200).json(data);
 });
 
@@ -95,7 +101,9 @@ app.delete('/farms/:id', (req, res) => {
 app.get('/products', async (req: Request, res: Response) => {
   const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
   const page = req.query.page ? parseInt(req.query.page as string) : 0
-  const data = await handleGetProducts(limit, page)
+  const filter: Filter<Product> = req.query.filter ? (req.query.filter as Filter<Product>) : null
+
+  const data = await handleGetProducts(limit, page, filter)
   res.status(200).json(data);
 });
 
@@ -134,7 +142,9 @@ app.delete('/products/:id', (req, res) => {
 app.get('/applications', async (req: Request, res: Response) => {
   const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
   const page = req.query.page ? parseInt(req.query.page as string) : 0
-  const data = await handleGetApplications(limit, page)
+  const filter: Filter<Application> = req.query.filter ? (req.query.filter as Filter<Application>) : null
+
+  const data = await handleGetApplications(limit, page, filter)
   res.status(200).json(data);
 });
 
@@ -171,3 +181,5 @@ app.delete('/applications/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+

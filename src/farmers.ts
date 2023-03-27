@@ -1,14 +1,19 @@
-import { Farmer } from "./models";
+import { Farmer, Filter } from "./models";
 import { Database } from 'sqlite3';
 const db = new Database('db.sqlite');
 
 // get list of all farmers from the database
-export function handleGetFarmers(limit: number, offset: number): Promise<Farmer[]> {
+export function handleGetFarmers(limit: number, offset: number, filter: Filter<Farmer>): Promise<Farmer[]> {
     // return new promise of type Farmer[]
     return new Promise<Farmer[]>((resolve, reject) => {
+        // create query filter based on the filter object
+        let where = ""
+        if (filter) {
+            where = ["name", "age", "phone_number", "farm_id"].filter(key => !!filter[key]).map(key => `${key} = '${filter[key]}'`).join(' AND ');
+        }
         // get the farmer from the blockchain
         // return the farmer
-        db.all<Farmer>(`SELECT * FROM farmer LIMIT ${limit} OFFSET ${offset}`, (err, rows) => { // this is the query    
+        db.all<Farmer>(`SELECT * FROM farmer where ${where ? where : "1=1"} LIMIT ${limit} OFFSET ${offset}`, (err, rows) => { // this is the query    
             resolve(rows);
         })
     });

@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon app.ts"
+    "serve": "nodemon app.ts",
+    "build": "tsc",
+    "start": "nodemon -q dist/app.js"
   },
   "keywords": [],
   "author": "",
