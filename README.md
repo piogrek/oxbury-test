@@ -15,7 +15,7 @@ Please avoid using a full web application framework such as NestJS or Laravel as
   [x] Makes available the data in [this file](/data.json)
   [x] Provides ability to add/edit/delete data
   [x] Provides ability to paginate response (default 30 items per page)
-  [ ] Provides ability to query data sets on their field values and linked field values (e.g. `farmer_id` in applications)
+  [x] Provides ability to query data sets on their field values and linked field values (e.g. `farmer_id` in applications)
 
 ### Extra / Bonus Points
 

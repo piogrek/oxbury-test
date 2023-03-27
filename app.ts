@@ -6,9 +6,21 @@ import { handleCreateFarm, handleDeleteFarm, handleGetFarm, handleGetFarms, hand
 import { handleCreateApplication, handleDeleteApplication, handleGetApplication, handleGetApplications, handleUpdateApplication } from './src/applications';
 import { handleCreateProduct, handleDeleteProduct, handleGetProduct, handleGetProducts, handleUpdateProduct } from './src/products';
 import { Application, Farm, Farmer, Filter, Product } from './src/models';
+import rateLimit from 'express-rate-limit'
 const app = express();
 const port = 3001
 
+
+// rate limiting. 10 requests per minute
+const limiter = rateLimit({
+	windowMs: 1 * 60 * 1000, // 1 minute
+	max: 10, // Limit each IP to 10 requests per `window` (here, per 10 minute)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter)
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
