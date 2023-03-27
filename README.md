@@ -18,13 +18,15 @@ By default server will start and reset database (create/seed)
 
 
 API routes:
+========
 
 Filtering:
+-------
 filter format in query parameters:  ?filter[field_name]=filter_value&filter[field_name2]=filter_value2
 filter values will be used using "AND" operator
 
 available entity types (:type) :
-
+--------
 `farmers` `farms` `applications` `products`
 
 [GET] /:type
