@@ -1,12 +1,7 @@
 # API
-to create database run:
-`npx prisma migrate deploy`
 
-load seed data
-`npx prisma db seed`  
-
-run api server
-`npm run dev`
+run api server (dev)
+`npm run serve`
 
 # Farm API
 
