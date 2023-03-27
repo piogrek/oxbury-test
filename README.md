@@ -18,32 +18,28 @@ By default server will start and reset database (create/seed)
 
 
 API routes:
-available entity types (:type) :
-`farmers` `farms` `applications` `products`
 
 Filtering:
 filter format in query parameters:  ?filter[field_name]=filter_value&filter[field_name2]=filter_value2
 filter values will be used using "AND" operator
 
+available entity types (:type) :
 
-[GET] 
-/:type
+`farmers` `farms` `applications` `products`
 
-
-[GET] 
-/:type/:id
+[GET] /:type
 
 
-[PUT] 
-/:type/:id
+[GET] /:type/:id
 
 
-[POST]  
-/:type
+[PUT] /:type/:id
 
 
-[DELETE]  
-/:type/:id
+[POST] /:type
+
+
+[DELETE]  /:type/:id
 
 example:
 [GET] `http://localhost:3001/applications`
