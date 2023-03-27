@@ -32,7 +32,7 @@ export function handleGetApplication(id: number): Promise<Application> {
 // delete Application by id
 export function handleDeleteApplication(id: number): void {
     const dbr = db.run(`DELETE FROM Application WHERE id = ${id}`, (err) => { // this is the query    
-        console.log("deleted Application", err)
+        console.log("deleted Application")
     })
 }
 

@@ -6,9 +6,9 @@ import { handleGetProducts } from '../src/products';
 import { handleGetApplications } from '../src/applications';
 import createAndSeed from '../src/seed';
 
-beforeAll(async () => {
-    createAndSeed()
-})   
+beforeAll( () => {
+     createAndSeed()
+})
 
 describe('test api filtering', function () {
     it('test filters for farms', async function () {
