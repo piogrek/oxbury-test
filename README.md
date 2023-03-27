@@ -1,12 +1,20 @@
-# API
+# API setup
+
+```
+npm i
+npm run test
+npm run build
+npm run start
+```
 
 run api server (dev)
 `npm run serve`
 
-demo credentials:
+demo credentials (basic auth):
 user: `api`
 password : `password`
 
+By default server will start and reset database (create/seed)
 
 # Farm API
 

@@ -28,9 +28,12 @@ export function handleGetFarm(id: number): Promise<Farm> {
 }
 
 // delete farm by id
-export function handleDeleteFarm(id: number): void {
-    db.run(`DELETE FROM farm WHERE id = ${id}`, (err, row) => { // this is the query    
-        console.log("deleted farm")
+export function handleDeleteFarm(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+        db.run(`DELETE FROM farm WHERE id = ${id}`, (err, row) => { // this is the query    
+            console.log("deleted farm")
+            resolve("");
+        })
     })
 }
 
