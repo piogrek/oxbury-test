@@ -27,18 +27,27 @@ filter values will be used using "AND" operator
 
 
 [GET] 
+
 /:type
+
 
 [GET] 
+
 /:type/:id
+
 
 [PUT] 
+
 /:type/:id
 
+
 [POST]  
+
 /:type
 
+
 [DELETE]  
+
 /:type/:id
 
 example:
