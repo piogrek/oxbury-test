@@ -1,7 +1,10 @@
 import express, { Request, Response } from 'express';
-import { handleGetFarmers } from './src/farmers'
+import { handleCreateFarmer, handleDeleteFarmer, handleGetFarmer, handleGetFarmers, handleUpdateFarmer } from './src/farmers'
 import bodyParser from 'body-parser'
 import createAndSeed from './src/seed'
+import { handleCreateFarm, handleDeleteFarm, handleGetFarm, handleGetFarms, handleUpdateFarm } from './src/farms';
+import { handleCreateApplication, handleDeleteApplication, handleGetApplication, handleGetApplications, handleUpdateApplication } from './src/applications';
+import { handleCreateProduct, handleDeleteProduct, handleGetProduct, handleGetProducts, handleUpdateProduct } from './src/products';
 const app = express();
 const port = 3001
 
@@ -11,28 +14,159 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 createAndSeed()
 
-// GET route to return all users
-app.get('/farmers', (req: Request, res: Response) => {
-  const farmers = handleGetFarmers(30, 0)
-  res.status(200).send("farmers");
-  console.log('xxxx')
+// GET route to return all farmers
+app.get('/farmers', async (req: Request, res: Response) => {
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
+  const page = req.query.page ? parseInt(req.query.page as string) : 0
+  const data = await handleGetFarmers(limit, page)
+  res.status(200).json(data);
 });
 
-// GET route to return all users
-app.get('/farmers/:id', (req, res) => {
-  res.json({ xxx: "1" });
+// GET route to return all farmers
+app.get('/farmers/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const data = await handleGetFarmer(id)
+  res.status(200).json(data);
+});
+// put route to update farmer
+app.put('/farmers/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const { name, age, phoneNumber, farmId } = req.body;
+  const data = await handleUpdateFarmer(id, name, age, phoneNumber, farmId)
+  res.status(200).json(data);
+
 });
 
-// POST route to create a new user
-app.post('/farmers', (req, res) => {
-
-  res.status(201).json({ xxx: "1" });
+// POST route to create a new farmer
+app.post('/farmers', async (req, res) => {
+  const { name, age, phoneNumber, farmId } = req.body;
+  const data = await handleCreateFarmer(name, age, phoneNumber, farmId)
+  res.status(200).json(data);
 });
 
-// DELETE route to delete a user by ID
+// DELETE route to delete a farmer by ID
 app.delete('/farmers/:id', (req, res) => {
-  // const userId = parseInt(req.params.id);
+  const userId = parseInt(req.params.id);
+  handleDeleteFarmer(userId)
+  res.status(200).json({ success: true });
 });
+
+
+// GET route to return all farms
+app.get('/farms', async (req: Request, res: Response) => {
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
+  const page = req.query.page ? parseInt(req.query.page as string) : 0
+  const data = await handleGetFarms(limit, page)
+  res.status(200).json(data);
+});
+
+// GET route to return all farms
+app.get('/farms/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const data = await handleGetFarm(id)
+  res.status(200).json(data);
+});
+// PUT route to update farm
+app.put('/farms/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const { name, num_cows, num_chickens, num_pigs, acres_farmed } = req.body;
+  const data = await handleUpdateFarm(id, name, num_cows, num_chickens, num_pigs, acres_farmed)
+  res.status(200).json(data);
+
+});
+
+// POST route to create a new farm
+app.post('/farms', async (req, res) => {
+  const { id, name, num_cows, num_chickens, num_pigs, acres_farmed } = req.body;
+  const data = await handleCreateFarm(name, num_cows, num_chickens, num_pigs, acres_farmed)
+  res.status(200).json(data);
+});
+
+// DELETE route to delete a farm by ID
+app.delete('/farms/:id', (req, res) => {
+  const userId = parseInt(req.params.id);
+  handleDeleteFarm(userId)
+  res.status(200).json({ success: true });
+});
+
+
+
+// GET route to return all products
+app.get('/products', async (req: Request, res: Response) => {
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
+  const page = req.query.page ? parseInt(req.query.page as string) : 0
+  const data = await handleGetProducts(limit, page)
+  res.status(200).json(data);
+});
+
+// GET route to return all products
+app.get('/products/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const data = await handleGetProduct(id)
+  res.status(200).json(data);
+});
+// PUT route to update product
+app.put('/products/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const { name, type } = req.body;
+  const data = await handleUpdateProduct(id, name, type)
+  res.status(200).json(data);
+
+});
+
+// POST route to create a new product
+app.post('/products', async (req, res) => {
+  const { name, type } = req.body;
+  const data = await handleCreateProduct(name, type)
+  res.status(200).json(data);
+});
+
+// DELETE route to delete a product by ID
+app.delete('/products/:id', (req, res) => {
+  const userId = parseInt(req.params.id);
+  handleDeleteProduct(userId)
+  res.status(200).json({ success: true });
+});
+
+
+
+// GET route to return all applications
+app.get('/applications', async (req: Request, res: Response) => {
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 30
+  const page = req.query.page ? parseInt(req.query.page as string) : 0
+  const data = await handleGetApplications(limit, page)
+  res.status(200).json(data);
+});
+
+// GET route to return all applications
+app.get('/applications/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const data = await handleGetApplication(id)
+  res.status(200).json(data);
+});
+// PUT route to update application  
+app.put('/applications/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  const { type, amount_requested, status, product_id, farmer_id } = req.body;
+  const data = await handleUpdateApplication(id, type, amount_requested, status, product_id, farmer_id)
+  res.status(200).json(data);
+
+});
+
+// POST route to create a new application
+app.post('/applications', async (req, res) => {
+  const { type, amount_requested, status, product_id, farmer_id } = req.body;
+  const data = await handleCreateApplication(type, amount_requested, status, product_id, farmer_id)
+  res.status(200).json(data);
+});
+
+// DELETE route to delete a application by ID
+app.delete('/applications/:id', (req, res) => {
+  const userId = parseInt(req.params.id);
+  handleDeleteApplication(userId)
+  res.status(200).json({ success: true });
+});
+
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

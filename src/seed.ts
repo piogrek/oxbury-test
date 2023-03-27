@@ -3,6 +3,7 @@ const db = new Database('db.sqlite');
 import fs from 'fs';
 import { Application, Farm, Farmer, Product } from './models';
 
+//create schema and seed data
 export default function createAndSeed() {
     db.on("error", function (error) {
         console.log("Getting an error : ", error);
